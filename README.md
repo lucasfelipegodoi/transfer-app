@@ -9,9 +9,9 @@ Após realizado o `git clone` do projeto, é necessário executar os seguintes c
 
 `composer install` 
 
-`php artisan key:generate`
+Após instalação é necessário copiar o arquivo _.env.example_ renomeando para _.env_ e incluindo as informações de acesso ao banco de dados . Tendo configurado as credenciais de banco de dados, executar:
 
-Após geração chave do projeto, é necessário copiar o arquivo _.env.example_ renomeando para _.env_ e incluindo as informações de acesso ao banco de dados . Tendo configurado as credenciais de banco de dados, executar:
+`php artisan key:generate`
 
 `php artisan migrate`
 
