@@ -61,12 +61,14 @@ class TransactionTransferService extends TransactionsService
                     // id do usuario nao existe, validacao da transaction ira retornar o erro para a API
                 }
 
-                $this->save($transactionPayer);
+                $payerReturn = $this->save($transactionPayer);
                 $this->save($transactionPayee);
 
                 $this->checkAuthorizer();
 
                 Notification::sendNotification($transactionPayee);
+
+                return $payerReturn;
             }
         });
 

@@ -15,6 +15,10 @@ class TransactionController extends Controller {
             
             $data = $request->all();
 
+            if(isset($data["payer"])){
+                $this->checkLoggedUser($data["payer"]);
+            }
+
             $transactionTransferService = app(TransactionTransferService::class);
 
             return $this->responseOk($transactionTransferService->execute($data), []);

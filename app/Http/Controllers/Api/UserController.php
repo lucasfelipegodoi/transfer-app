@@ -14,6 +14,7 @@ class UserController extends Controller {
     public function show(Request $request, $id)
     {
         try {
+            $this->checkLoggedUser($id);
             $userService = app(UserService::class);
             return $this->responseOk($userService->getById($id), []);
         } catch (Exception $exception) {
