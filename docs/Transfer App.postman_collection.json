@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"name\": \"Usuário lojista\",\r\n\t\"email\": \"comum@mail.com\",\r\n\t\"password\": \"12345\",\r\n    \"document\" : \"43707813886\",\r\n    \"users_type_id\" : 1\r\n}",
+					"raw": "{\r\n\t\"name\": \"Usuário lojista\",\r\n\t\"email\": \"comum@mail.com\",\r\n\t\"password\": \"12345\",\r\n    \"document\" : \"11111111111\",\r\n    \"users_type_id\" : 1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
