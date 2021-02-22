@@ -15,7 +15,7 @@ class CreateLogsTable extends Migration
      */
     public function up()
     {
-        Schema::connection('logs_sistema')->create($this->tableName, function (Blueprint $table) {
+        Schema::create($this->tableName, function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('instance');
             $table->string('message');
@@ -33,6 +33,6 @@ class CreateLogsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('logs_sistema')->dropIfExists($this->tableName);
+        Schema::dropIfExists($this->tableName);
     }
 }
