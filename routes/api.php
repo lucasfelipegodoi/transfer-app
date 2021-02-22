@@ -24,7 +24,7 @@ $router->group([
 
 
 /**
- * Endpoints para transacoes
+ * Endpoints para transacoes - deposito
  */
 $router->group([
     'prefix' => 'api/deposit',
@@ -34,7 +34,7 @@ $router->group([
 });
 
 /**
- * Endpoints para transacoes
+ * Endpoints para transacoes - transferencia
  */
 $router->group([
     'prefix' => 'api/transaction',
