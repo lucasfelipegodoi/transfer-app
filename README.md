@@ -15,7 +15,7 @@ Após geração chave do projeto, é necessário copiar o arquivo _.env.example_
 
 `php artisan migrate`
 
-`php artisan passport:install`
+`php artisan passport:install` - a credencial de ID 2 deve ser guardada para ser utilizada no processo de [Autenticação](https://github.com/lucasfelipegodoi/transfer-app/wiki/Autentica%C3%A7%C3%A3o)
 
 `php artisan db:seed` - passo opcional, será criado alguns usuários do tipo "Comum" e "Lojista" para testes do projeto
 
