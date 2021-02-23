@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Models\TransactionTypes;
+use App\Rules\NegativeValueRule;
+use App\Rules\PayerValidationRule;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -20,18 +22,30 @@ class TransactionRequest extends Request
         $rules = [
             'wallet_id' => ['integer', 'required', Rule::exists('wallet', 'id')],
             'transaction_type_id' => ['integer', 'required',   Rule::exists('transaction_types', 'id')],
-            'value' => ['required'],
+            'value' => ['required',   
+                        function ($attribute, $value, $fail) {
+                            if (is_numeric($value) == false) {
+                                $fail('The '.$attribute.' is invalid.');
+                            }
+                        },
+            ],
         ];
 
         if(isset($data["transaction_type_id"]) && $data["transaction_type_id"] == TransactionTypes::TRANSFER){
             
             if(isset($data["value"]) && $data["value"] > 0){
-                $rules["wallet_id_payer"] = ['integer', 'required', Rule::exists('wallet', 'id'),'payer_validation'];
+                $rules["wallet_id_payer"] = ['integer', 'required', Rule::exists('wallet', 'id'),new PayerValidationRule];
+                $rules["value"][] = new NegativeValueRule;
             }
 
             if(isset($data["value"]) && $data["value"] <= 0){
                 $rules["wallet_id_payee"] = ['integer', 'required', Rule::exists('wallet', 'id')];
             }
+        }
+        
+        if(isset($data["transaction_type_id"]) && $data["transaction_type_id"] == TransactionTypes::DEPOSIT){
+        
+            $rules["value"][] = new NegativeValueRule;
         }
 
         if($id) {

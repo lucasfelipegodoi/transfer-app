@@ -24,17 +24,23 @@ class TransactionTransferService extends TransactionsService
 
         DB::transaction(function () use (&$data) {
 
+            $value = is_numeric($data["value"]) ? $data["value"] : null;
+
+            if($value <= 0){
+                throw new ValidacaoException(["erros"=>"O valor tem que ser numérico e maior que zero"]);
+            }
+
             $transactionPayer = [
                 "transaction_type_id" => TransactionTypes::TRANSFER,
                 "wallet_id" =>  null, 
-                "value" => isset($data["value"]) ? $data["value"] * -1 : null,
+                "value" => $value * -1,
                 "wallet_id_payee" => null
             ];
 
             $transactionPayee = [
                 "transaction_type_id" => TransactionTypes::TRANSFER,
                 "wallet_id" =>  null, 
-                "value" => isset($data["value"]) ? $data["value"] : null,
+                "value" => $value,
                 "wallet_id_payer" => null
             ];
 
@@ -50,8 +56,7 @@ class TransactionTransferService extends TransactionsService
                     $transactionPayee["wallet_id"] = $walletPayee->id;
                     $transactionPayee["wallet_id_payer"] = $walletPayer->id;
 
-                    if(isset($data["value"]) && 
-                        ($walletPayer->current_ballance + $transactionPayer["value"]) < 0){
+                    if(($walletPayer->current_ballance + $value) < 0){
                             throw new ValidacaoException(["erros"=>"Saldo insuficiente"]);
                     }
 

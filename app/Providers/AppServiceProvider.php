@@ -20,17 +20,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        app('validator')->extend('payer_validation', function ($attribute, $value) {
-            try{
-                return Wallet::find($value)->user->users_type_id == UsersType::ID_TYPE_COMUM;
-             } catch(Exception $ex){
-                return false;
-            }
-        });
-
-        app('validator')->replacer('payer_validation', function ($message, $attribute, $rule, $parameters) {
-            return 'Não é possível transferir de uma conta lojista';
-        });
     }
 
 }
